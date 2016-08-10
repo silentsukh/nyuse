@@ -4,7 +4,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 import IconButton from 'material-ui/IconButton';
 import ActionFavourite from 'material-ui/svg-icons/action/favorite';
 import ActionFavouriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import { darkBlack } from 'material-ui/styles/colors';
+import { darkBlack, red500, blue300, red200 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
 
 export default class NewsItem extends React.Component {
@@ -13,17 +13,18 @@ export default class NewsItem extends React.Component {
 	}
 	render() {
 		let newsItem = this.props.newsItem;
-		let secondaryText = (<div>{newsItem.summary} - <span style={{color: darkBlack}}>{newsItem.author}</span>, <span></span></div>);
+		let pubDateTime = new Date(newsItem.get('lastUpdated'));
+		let secondaryText = (<div><span style={{color: darkBlack}}>{newsItem.get('author')}</span> - <em>{pubDateTime.toLocaleString()}</em> - {newsItem.get('summary')}</div>);
 		return (
 			<div>
 				<ListItem
-					leftAvatar={<Avatar src={this.props.feedSource.avatarUrl} />}
-					primaryText={newsItem.title}
+					leftAvatar={<Avatar src={this.props.feedSource.get('avatarUrl')} />}
+					primaryText={newsItem.get('title')}
 					secondaryText={secondaryText}
 					secondaryTextLines={2}
 					rightIconButton={
-						<IconButton tooltip={!newsItem.isLiked ? "Like" : "Unlike"}>
-							{newsItem.isLiked ? <ActionFavourite /> : <ActionFavouriteBorder />}
+						<IconButton tooltip={!newsItem.get('isLiked') ? "Like" : "Unlike"}>
+							{newsItem.get('isLiked') ? <ActionFavourite color={red500} hoverColor={blue300} /> : <ActionFavouriteBorder color={red200} hoverColor={blue300} />}
 						</IconButton>
 					}
 					
