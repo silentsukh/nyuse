@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
 import { ListItem } from 'material-ui/List';
 import SvgIcon from 'material-ui/SvgIcon';
-import IconButton from 'material-ui/IconButton';
-import ActionFavourite from 'material-ui/svg-icons/action/favorite';
-import ActionFavouriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import { darkBlack, red500, blue300, red200 } from 'material-ui/styles/colors';
+import { darkBlack } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
+import LikeButton from '../containers/LikeButton';
+import IconButton from 'material-ui/IconButton';
+
 
 export default class NewsItem extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.onLikeClick = () => this._onLikeClick();
 	}
 	render() {
 		let newsItem = this.props.newsItem;
@@ -22,12 +24,7 @@ export default class NewsItem extends React.Component {
 					primaryText={newsItem.get('title')}
 					secondaryText={secondaryText}
 					secondaryTextLines={2}
-					rightIconButton={
-						<IconButton tooltip={!newsItem.get('isLiked') ? "Like" : "Unlike"}>
-							{newsItem.get('isLiked') ? <ActionFavourite color={red500} hoverColor={blue300} /> : <ActionFavouriteBorder color={red200} hoverColor={blue300} />}
-						</IconButton>
-					}
-					
+					rightIconButton={<LikeButton id={newsItem.get('id')} isLiked={newsItem.get('isLiked')} />}
 				/>
 			</div>
 		);
@@ -41,7 +38,7 @@ NewsItem.PropTypes = {
 		article: PropTypes.string.isRequired,
 		author: PropTypes.string.isRequired,
 		lastUpdated: PropTypes.string.isRequired,
-		isLiked: PropTypes.bool
+		isLiked: PropTypes.bool.isRequired
 	}),
 	feedSource: PropTypes.shape({
 		id: PropTypes.number.isRequired,

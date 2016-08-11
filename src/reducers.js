@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { ActionTypes } from './actions';
+import { List, Map } from 'immutable';
 
 const initialState = {
+	userId: '',
 	isFetching: false,
 	selectedItem: -1,
-	items: [],
+	items: List([]),
 	error: {}
 };
 
@@ -16,20 +18,7 @@ function selectedItem(state = initialState.selectedItem, action) {
 			return state;
 	}
 }
-function toggledLike(state = initialState.items, action) {
-	switch (action.type) {
-		case ActionTypes.TOGGLE_LIKE:
-			return state.map((item) => {
-				if (item.get('id') === action.id) {
-					return item.update('isLiked', isLiked => !isLiked);
-				}
-				return item;
-			});
-		default:
-			return state;
-	}
-}
-function feed(state = initialState, action) {
+function feed(state = { isFetching: initialState.isFetching, items: initialState.items, error: initialState.error }, action) {
 	switch(action.type) {
 		case ActionTypes.REQUEST_FEED:
 			return { ...state, isFetching: true };
@@ -37,6 +26,13 @@ function feed(state = initialState, action) {
 			return { ...state, isFetching: false, items: action.items };
 		case ActionTypes.REQUEST_FAILURE:
 			return { ...state, isFetching: false, error: action.error };
+		case ActionTypes.TOGGLE_LIKE:
+			return { ...state, items: state.items.set('newsItems', state.items.get('newsItems').map((item) => {
+						if (item.get('id') === action.id) {
+							return item.update('isLiked', isLiked => !isLiked);
+						}
+						return item;
+					})) };
 		default:
 			return state;
 	}
@@ -44,7 +40,6 @@ function feed(state = initialState, action) {
 
 const rootReducer = combineReducers({
 	feed,
-	toggledLike,
 	selectedItem
 });
 

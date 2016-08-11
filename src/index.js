@@ -1,12 +1,25 @@
+//React
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+//Redux
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './reducers';
+import { Provider } from 'react-redux'
+
+//Immutable
+import { List, Map } from 'immutable';
+
+//Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { blue500, blue300, orange400 } from 'material-ui/styles/colors';
-import Feed from './components/Feed';
-import { List, Map } from 'immutable';
+
+//Containers
+import AppC from './containers/App';
 
 injectTapEventPlugin();
 
@@ -59,25 +72,22 @@ const dummyData = Map({
 	])
 });
 
+const loggerMiddleware = createLogger();
 
-class Nyuse extends React.Component {
-	render() {
-		return (
-			<div>
-				<AppBar title="Nyuse" />
-				<div className="container">
-					<div className="col-xs-12">
-						<Feed data={dummyData} />
-					</div>
-				</div>
-			</div>
-		);
-	}
-}
+const store = createStore(
+	rootReducer,
+	applyMiddleware(
+		thunkMiddleware,
+		loggerMiddleware
+	)
+);
+
 
 ReactDOM.render(
 	<MuiThemeProvider muiTheme={muiTheme}>
-		<Nyuse />
+		<Provider store={store}>
+			<AppC />
+		</Provider>
 	</MuiThemeProvider>
 	, document.getElementById('content')
 );

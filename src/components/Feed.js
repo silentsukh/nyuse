@@ -18,17 +18,20 @@ export default class Feed extends React.Component {
 		super(props);
 	}
 	render() {
-		let feedItems = this.props.data.get('newsItems').map((item) => {
-			let source = this.props.data.get('feedSources').filter((feedSource) => {
-				return feedSource.get('id') === item.get('sourceId');
-			}).first();
-			return (
-				<div key={item.get('id')}>
-					<NewsItem newsItem={item} feedSource={source} />
-					<Divider />
-				</div>
-			);
-		});
+		let feedItems = (<p>No news items</p>);
+		if (this.props.items.size > 0) {
+			feedItems = this.props.items.get('newsItems').map((item) => {
+				let source = this.props.items.get('feedSources').find((feedSource) => {
+					return feedSource.get('id') === item.get('sourceId');
+				});
+				return (
+					<div key={item.get('id')}>
+						<NewsItem newsItem={item} feedSource={source} />
+						<Divider />
+					</div>
+				);
+			});
+		}
 		return (
 			<Paper style={paperStyle}>
 				<List style={listStyle}>
@@ -40,8 +43,5 @@ export default class Feed extends React.Component {
 }
 
 Feed.PropTypes = {
-	data: PropTypes.shape({
-		feedSources: PropTypes.array,
-		newsItems: PropTypes.array
-	})
+	items: PropTypes.object
 };
