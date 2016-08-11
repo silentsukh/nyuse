@@ -5,7 +5,7 @@ import { List, Map } from 'immutable';
 const initialState = {
 	userId: '',
 	isFetching: false,
-	selectedItem: -1,
+	selectedItem: '',
 	items: List([]),
 	error: {}
 };

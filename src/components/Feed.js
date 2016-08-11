@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
-import NewsItem from './NewsItem';
+import NewsItem from '../containers/NewsItem';
 
 const paperStyle = {
 	marginTop: '20px',

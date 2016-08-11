@@ -30,5 +30,5 @@ App.PropTypes = {
 		error: PropTypes.object.isRequired,
 		items: PropTypes.object.isRequired
 	}),
-	selectedItem: PropTypes.number.isRequired
+	selectedItem: PropTypes.string.isRequired
 }

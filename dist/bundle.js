@@ -39422,7 +39422,7 @@ App.PropTypes = {
 		error: _react.PropTypes.object.isRequired,
 		items: _react.PropTypes.object.isRequired
 	}),
-	selectedItem: _react.PropTypes.number.isRequired
+	selectedItem: _react.PropTypes.string.isRequired
 };
 
 },{"../actions":415,"./Feed":417,"material-ui/AppBar":175,"react":390}],417:[function(require,module,exports){
@@ -39448,7 +39448,7 @@ var _Paper = require('material-ui/Paper');
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _NewsItem = require('./NewsItem');
+var _NewsItem = require('../containers/NewsItem');
 
 var _NewsItem2 = _interopRequireDefault(_NewsItem);
 
@@ -39523,83 +39523,7 @@ Feed.PropTypes = {
 	items: _react.PropTypes.object
 };
 
-},{"./NewsItem":419,"material-ui/Divider":179,"material-ui/List":188,"material-ui/Paper":190,"react":390}],418:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _IconButton = require('material-ui/IconButton');
-
-var _IconButton2 = _interopRequireDefault(_IconButton);
-
-var _favorite = require('material-ui/svg-icons/action/favorite');
-
-var _favorite2 = _interopRequireDefault(_favorite);
-
-var _favoriteBorder = require('material-ui/svg-icons/action/favorite-border');
-
-var _favoriteBorder2 = _interopRequireDefault(_favoriteBorder);
-
-var _colors = require('material-ui/styles/colors');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LikeButton = function (_Component) {
-	_inherits(LikeButton, _Component);
-
-	function LikeButton(props) {
-		_classCallCheck(this, LikeButton);
-
-		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LikeButton).call(this, props));
-
-		_this.onClick = function (e) {
-			return _this._onClick(e);
-		};
-		return _this;
-	}
-
-	_createClass(LikeButton, [{
-		key: '_onClick',
-		value: function _onClick(e) {
-			this.props.onTouchTap();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				_IconButton2.default,
-				{ tooltip: !this.props.isLiked ? "Like" : "Unlike", onTouchTap: this.onClick, style: { position: 'absolute', right: '5px', top: '0' } },
-				this.props.isLiked ? _react2.default.createElement(_favorite2.default, { color: _colors.red500, hoverColor: _colors.blue300 }) : _react2.default.createElement(_favoriteBorder2.default, { color: _colors.red200, hoverColor: _colors.blue300 })
-			);
-		}
-	}]);
-
-	return LikeButton;
-}(_react.Component);
-
-exports.default = LikeButton;
-
-LikeButton.PropTypes = {
-	id: _react.PropTypes.string.isRequired,
-	isLiked: _react.PropTypes.bool.isRequired,
-	onTouchTap: _react.PropTypes.func.isRequired
-};
-
-},{"material-ui/IconButton":183,"material-ui/styles/colors":204,"material-ui/svg-icons/action/favorite":211,"material-ui/svg-icons/action/favorite-border":210,"react":390}],419:[function(require,module,exports){
+},{"../containers/NewsItem":420,"material-ui/Divider":179,"material-ui/List":188,"material-ui/Paper":190,"react":390}],418:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39624,13 +39548,17 @@ var _Avatar = require('material-ui/Avatar');
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
-var _LikeButton = require('../containers/LikeButton');
-
-var _LikeButton2 = _interopRequireDefault(_LikeButton);
-
 var _IconButton = require('material-ui/IconButton');
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _favorite = require('material-ui/svg-icons/action/favorite');
+
+var _favorite2 = _interopRequireDefault(_favorite);
+
+var _favoriteBorder = require('material-ui/svg-icons/action/favorite-border');
+
+var _favoriteBorder2 = _interopRequireDefault(_favoriteBorder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39648,6 +39576,9 @@ var NewsItem = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NewsItem).call(this, props));
 
+		_this.onClick = function () {
+			return _this._onClick();
+		};
 		_this.onLikeClick = function () {
 			return _this._onLikeClick();
 		};
@@ -39655,6 +39586,16 @@ var NewsItem = function (_React$Component) {
 	}
 
 	_createClass(NewsItem, [{
+		key: '_onClick',
+		value: function _onClick(e) {
+			this.props.onTouchTap();
+		}
+	}, {
+		key: '_onLikeClick',
+		value: function _onLikeClick(e) {
+			this.props.onLikeTouchTap();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var newsItem = this.props.newsItem;
@@ -39676,6 +39617,7 @@ var NewsItem = function (_React$Component) {
 				' - ',
 				newsItem.get('summary')
 			);
+			var isLiked = newsItem.get('isLiked');
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -39684,7 +39626,12 @@ var NewsItem = function (_React$Component) {
 					primaryText: newsItem.get('title'),
 					secondaryText: secondaryText,
 					secondaryTextLines: 2,
-					rightIconButton: _react2.default.createElement(_LikeButton2.default, { id: newsItem.get('id'), isLiked: newsItem.get('isLiked') })
+					rightIconButton: _react2.default.createElement(
+						_IconButton2.default,
+						{ tooltip: !isLiked ? "Like" : "Unlike", onTouchTap: this.onLikeClick },
+						isLiked ? _react2.default.createElement(_favorite2.default, { color: _colors.red500, hoverColor: _colors.blue300 }) : _react2.default.createElement(_favoriteBorder2.default, { color: _colors.red200, hoverColor: _colors.blue300 })
+					),
+					onTouchTap: this.onClick
 				})
 			);
 		}
@@ -39711,10 +39658,12 @@ NewsItem.PropTypes = {
 		avatarUrl: _react.PropTypes.string.isRequired,
 		url: _react.PropTypes.string,
 		description: _react.PropTypes.string
-	})
+	}),
+	onTouchTap: _react.PropTypes.func.isRequired,
+	onLikeTouchTap: _react.PropTypes.func.isRequired
 };
 
-},{"../containers/LikeButton":421,"material-ui/Avatar":177,"material-ui/IconButton":183,"material-ui/List":188,"material-ui/SvgIcon":194,"material-ui/styles/colors":204,"react":390}],420:[function(require,module,exports){
+},{"material-ui/Avatar":177,"material-ui/IconButton":183,"material-ui/List":188,"material-ui/SvgIcon":194,"material-ui/styles/colors":204,"material-ui/svg-icons/action/favorite":211,"material-ui/svg-icons/action/favorite-border":210,"react":390}],419:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39736,7 +39685,7 @@ var AppC = (0, _reactRedux.connect)(mapStateToProps)(_App2.default);
 
 exports.default = AppC;
 
-},{"../components/App":416,"react-redux":232}],421:[function(require,module,exports){
+},{"../components/App":416,"react-redux":232}],420:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39745,9 +39694,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactRedux = require('react-redux');
 
-var _LikeButton = require('../components/LikeButton');
+var _NewsItem = require('../components/NewsItem');
 
-var _LikeButton2 = _interopRequireDefault(_LikeButton);
+var _NewsItem2 = _interopRequireDefault(_NewsItem);
 
 var _actions = require('../actions');
 
@@ -39760,15 +39709,18 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
 		onTouchTap: function onTouchTap() {
-			dispatch((0, _actions.toggleLike)(ownProps.id));
+			dispatch((0, _actions.selectItem)(ownProps.newsItem.get('id')));
+		},
+		onLikeTouchTap: function onLikeTouchTap() {
+			dispatch((0, _actions.toggleLike)(ownProps.newsItem.get('id')));
 		}
 	};
 }
 
-var LikeButton = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_LikeButton2.default);
-exports.default = LikeButton;
+var NewsItem = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_NewsItem2.default);
+exports.default = NewsItem;
 
-},{"../actions":415,"../components/LikeButton":418,"react-redux":232}],422:[function(require,module,exports){
+},{"../actions":415,"../components/NewsItem":418,"react-redux":232}],421:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39786,7 +39738,7 @@ var _immutable = require('immutable');
 var initialState = {
 	userId: '',
 	isFetching: false,
-	selectedItem: -1,
+	selectedItem: '',
 	items: (0, _immutable.List)([]),
 	error: {}
 };
@@ -39834,7 +39786,7 @@ var rootReducer = (0, _redux.combineReducers)({
 
 exports.default = rootReducer;
 
-},{"./actions":415,"immutable":30,"redux":409}],423:[function(require,module,exports){
+},{"./actions":415,"immutable":30,"redux":409}],422:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -39953,4 +39905,4 @@ _reactDom2.default.render(_react2.default.createElement(
 	)
 ), document.getElementById('content'));
 
-},{"./containers/App":420,"./reducers":422,"immutable":30,"material-ui/styles/MuiThemeProvider":202,"material-ui/styles/colors":204,"material-ui/styles/getMuiTheme":205,"react":390,"react-dom":229,"react-redux":232,"react-tap-event-plugin":242,"redux":409,"redux-logger":402,"redux-thunk":403}]},{},[423]);
+},{"./containers/App":419,"./reducers":421,"immutable":30,"material-ui/styles/MuiThemeProvider":202,"material-ui/styles/colors":204,"material-ui/styles/getMuiTheme":205,"react":390,"react-dom":229,"react-redux":232,"react-tap-event-plugin":242,"redux":409,"redux-logger":402,"redux-thunk":403}]},{},[422]);

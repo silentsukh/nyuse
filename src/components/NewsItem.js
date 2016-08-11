@@ -1,22 +1,31 @@
 import React, { PropTypes } from 'react';
 import { ListItem } from 'material-ui/List';
 import SvgIcon from 'material-ui/SvgIcon';
-import { darkBlack } from 'material-ui/styles/colors';
+import { darkBlack, red500, blue300, red200 } from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
-import LikeButton from '../containers/LikeButton';
 import IconButton from 'material-ui/IconButton';
+import ActionFavourite from 'material-ui/svg-icons/action/favorite';
+import ActionFavouriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
 
 export default class NewsItem extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.onClick = () => this._onClick();
 		this.onLikeClick = () => this._onLikeClick();
+	}
+	_onClick(e) {
+		this.props.onTouchTap();
+	}
+	_onLikeClick(e) {
+		this.props.onLikeTouchTap();
 	}
 	render() {
 		let newsItem = this.props.newsItem;
 		let pubDateTime = new Date(newsItem.get('lastUpdated'));
 		let secondaryText = (<div><span style={{color: darkBlack}}>{newsItem.get('author')}</span> - <em>{pubDateTime.toLocaleString()}</em> - {newsItem.get('summary')}</div>);
+		let isLiked = newsItem.get('isLiked');
 		return (
 			<div>
 				<ListItem
@@ -24,7 +33,12 @@ export default class NewsItem extends React.Component {
 					primaryText={newsItem.get('title')}
 					secondaryText={secondaryText}
 					secondaryTextLines={2}
-					rightIconButton={<LikeButton id={newsItem.get('id')} isLiked={newsItem.get('isLiked')} />}
+					rightIconButton={
+						<IconButton tooltip={!isLiked ? "Like" : "Unlike"} onTouchTap={this.onLikeClick}>
+							{isLiked ? <ActionFavourite color={red500} hoverColor={blue300} /> : <ActionFavouriteBorder color={red200} hoverColor={blue300} />}
+						</IconButton>
+					}
+					onTouchTap={this.onClick}
 				/>
 			</div>
 		);
@@ -46,5 +60,7 @@ NewsItem.PropTypes = {
 		avatarUrl: PropTypes.string.isRequired,
 		url: PropTypes.string,
 		description: PropTypes.string
-	})
+	}),
+	onTouchTap: PropTypes.func.isRequired,
+	onLikeTouchTap: PropTypes.func.isRequired
 }
