@@ -1,4 +1,5 @@
 import { List, Map } from 'immutable';
+import fetch from 'isomorphic-fetch';
 
 export const ActionTypes = {
 	REQUEST_FEED: 'REQUEST_FEED',
@@ -82,6 +83,20 @@ const dummyData = Map({
 export function fetchFeed(userId = '') {
 	return (dispatch) => {
 		dispatch(requestFeed());
+
+/*		let result = fetch('https://news.markets/feed/', {
+			headers: {
+		        'Accept': 'text/html,application/xhtml+xml,application/xml;',
+		        'Content-Type': 'application/atom+xml; charset=UTF-8',
+		        'Access-Control-Allow-Origin': '*'
+			}
+  		})
+			.then(response => {
+				console.log(response);
+			}, error => {
+				console.error(error);
+			});
+*/
 		return dispatch(receiveFeedSuccess(dummyData));
 	}
 }
