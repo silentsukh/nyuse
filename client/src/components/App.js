@@ -8,8 +8,9 @@ export default class App extends React.Component {
 		super(props);
 	}
 	componentDidMount() {
-		let { dispatch } = this.props;
-		dispatch(fetchFeed());
+		//let { dispatch } = this.props;
+		//dispatch(fetchFeed());
+		console.log(this.props);
 	}
 	render() {
 		return (

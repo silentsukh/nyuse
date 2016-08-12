@@ -6,7 +6,7 @@ const initialState = {
 	userId: '',
 	isFetching: false,
 	selectedItem: '',
-	items: List([]),
+	items: Map({}),
 	error: {}
 };
 

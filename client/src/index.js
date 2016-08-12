@@ -34,6 +34,7 @@ const muiTheme = getMuiTheme({
 const loggerMiddleware = createLogger();
 
 const preloadedState = window.__PRELOADED_STATE__;
+console.log(preloadedState);
 
 const store = createStore(
 	rootReducer,
