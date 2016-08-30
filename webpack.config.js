@@ -1,7 +1,7 @@
 const path = require('path');
-const CLIENT_DIR = path.resolve(__dirname, 'client/src');
+const CLIENT_DIR = path.resolve(__dirname, 'client');
 const SERVER_DIR = path.resolve(__dirname, 'server/generated');
-const DIST_DIR = path.resolve(__dirname, 'client/dist');
+const DIST_DIR = path.resolve(__dirname, 'public/dist');
 
 const loaders = [{
     test: /\.js$/,

@@ -10,7 +10,6 @@ export default class App extends React.Component {
 	componentDidMount() {
 		//let { dispatch } = this.props;
 		//dispatch(fetchFeed());
-		console.log(this.props);
 	}
 	render() {
 		return (

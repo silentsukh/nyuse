@@ -10,7 +10,7 @@ import rootReducer from './reducers';
 import { Provider } from 'react-redux'
 
 //Immutable
-import { List, Map } from 'immutable';
+import { List, Map, fromJS } from 'immutable';
 
 //Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -20,6 +20,7 @@ import { blue500, blue300, orange400 } from 'material-ui/styles/colors';
 
 //Containers
 import AppC from './containers/App';
+
 
 injectTapEventPlugin();
 
@@ -33,8 +34,8 @@ const muiTheme = getMuiTheme({
 
 const loggerMiddleware = createLogger();
 
-const preloadedState = window.__PRELOADED_STATE__;
-console.log(preloadedState);
+let preloadedState = window.__PRELOADED_STATE__;
+preloadedState.feed.items = fromJS(preloadedState.feed.items);
 
 const store = createStore(
 	rootReducer,

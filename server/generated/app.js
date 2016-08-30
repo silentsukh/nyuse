@@ -120,7 +120,6 @@ module.exports =
 			value: function componentDidMount() {
 				//let { dispatch } = this.props;
 				//dispatch(fetchFeed());
-				console.log(this.props);
 			}
 		}, {
 			key: 'render',
@@ -3679,7 +3678,8 @@ module.exports =
 					null,
 					'No news items'
 				);
-				if (this.props.items.size > 0) {
+				console.log();
+				if (this.props.items.get('newsItems').size > 0) {
 					feedItems = this.props.items.get('newsItems').map(function (item) {
 						var source = _this2.props.items.get('feedSources').find(function (feedSource) {
 							return feedSource.get('id') === item.get('sourceId');

@@ -19,7 +19,8 @@ export default class Feed extends React.Component {
 	}
 	render() {
 		let feedItems = (<p>No news items</p>);
-		if (this.props.items.size > 0) {
+		console.log()
+		if (this.props.items.get('newsItems').size > 0) {
 			feedItems = this.props.items.get('newsItems').map((item) => {
 				let source = this.props.items.get('feedSources').find((feedSource) => {
 					return feedSource.get('id') === item.get('sourceId');

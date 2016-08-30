@@ -116,7 +116,7 @@
 	var loggerMiddleware = (0, _reduxLogger2.default)();
 
 	var preloadedState = window.__PRELOADED_STATE__;
-	console.log(preloadedState);
+	preloadedState.feed.items = (0, _immutable.fromJS)(preloadedState.feed.items);
 
 	var store = (0, _redux.createStore)(_reducers2.default, preloadedState, (0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware));
 
@@ -36077,7 +36077,6 @@
 			value: function componentDidMount() {
 				//let { dispatch } = this.props;
 				//dispatch(fetchFeed());
-				console.log(this.props);
 			}
 		}, {
 			key: 'render',
@@ -40143,7 +40142,8 @@
 					null,
 					'No news items'
 				);
-				if (this.props.items.size > 0) {
+				console.log();
+				if (this.props.items.get('newsItems').size > 0) {
 					feedItems = this.props.items.get('newsItems').map(function (item) {
 						var source = _this2.props.items.get('feedSources').find(function (feedSource) {
 							return feedSource.get('id') === item.get('sourceId');
