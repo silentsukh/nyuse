@@ -6,6 +6,7 @@ const DIST_DIR = path.resolve(__dirname, 'public/dist');
 const loaders = [{
     test: /\.js$/,
     include: CLIENT_DIR,
+    exclude: path.resolve(__dirname, 'node_modules'),
     loader: 'babel-loader',
     query: {
       presets: ['es2015', 'react'],

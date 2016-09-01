@@ -92,6 +92,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// inject tap event for Material UI
+
+
 	//Immutable
 	(0, _reactTapEventPlugin2.default)();
 

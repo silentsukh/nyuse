@@ -21,7 +21,7 @@ import { blue500, blue300, orange400 } from 'material-ui/styles/colors';
 //Containers
 import AppC from './containers/App';
 
-
+// inject tap event for Material UI
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
