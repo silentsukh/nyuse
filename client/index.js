@@ -10,7 +10,8 @@ import rootReducer from './reducers';
 import { Provider } from 'react-redux'
 
 //Immutable
-import { List, Map, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
+
 
 //Material UI
 import injectTapEventPlugin from 'react-tap-event-plugin';
