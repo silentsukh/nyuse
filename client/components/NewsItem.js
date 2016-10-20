@@ -29,7 +29,6 @@ export default class NewsItem extends React.Component {
 		return (
 			<div>
 				<ListItem
-					leftAvatar={<Avatar src={this.props.feedSource.get('avatarUrl')} />}
 					primaryText={newsItem.get('title')}
 					secondaryText={secondaryText}
 					secondaryTextLines={2}
@@ -53,13 +52,6 @@ NewsItem.PropTypes = {
 		author: PropTypes.string.isRequired,
 		lastUpdated: PropTypes.string.isRequired,
 		isLiked: PropTypes.bool.isRequired
-	}),
-	feedSource: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		name: PropTypes.string.isRequired,
-		avatarUrl: PropTypes.string.isRequired,
-		url: PropTypes.string,
-		description: PropTypes.string
 	}),
 	onTouchTap: PropTypes.func.isRequired,
 	onLikeTouchTap: PropTypes.func.isRequired

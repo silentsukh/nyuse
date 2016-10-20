@@ -27,12 +27,12 @@ function feed(state = { isFetching: initialState.isFetching, items: initialState
 		case ActionTypes.REQUEST_FAILURE:
 			return { ...state, isFetching: false, error: action.error };
 		case ActionTypes.TOGGLE_LIKE:
-			return { ...state, items: state.items.set('newsItems', state.items.get('newsItems').map((item) => {
+			return { ...state, items: state.items.map((item) => {
 						if (item.get('id') === action.id) {
 							return item.update('isLiked', isLiked => !isLiked);
 						}
 						return item;
-					})) };
+					}) };
 		default:
 			return state;
 	}
